@@ -1,10 +1,10 @@
 name: Build DariDZ APK
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-apk:
@@ -19,12 +19,19 @@ jobs:
         with:
           flutter-version: '3.35.0'
           channel: stable
+          cache: true
+
+      - name: Create Android project files
+        run: |
+          flutter create --platforms=android .
 
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release
+        run: |
+          flutter build apk --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
