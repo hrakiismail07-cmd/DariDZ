@@ -1,4 +1,4 @@
- name: Build DariDZ APK
+name: Build DariDZ APK
 
 on:
   push:
