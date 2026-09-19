@@ -139,7 +139,86 @@ class PropertyCard extends StatelessWidget {
         subtitle: Text('$location\n$price'),
         isThreeLine: true,
         trailing: const Icon(Icons.arrow_forward_ios),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PropertyDetailsPage(
+                title: title,
+                location: location,
+                price: price,
+                icon: icon,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class PropertyDetailsPage extends StatelessWidget {
+  final String title;
+  final String location;
+  final String price;
+  final IconData icon;
+
+  const PropertyDetailsPage({
+    super.key,
+    required this.title,
+    required this.location,
+    required this.price,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('تفاصيل العقار'),
+        centerTitle: true,
+      ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CircleAvatar(
+                radius: 55,
+                child: Icon(icon, size: 55),
+              ),
+              const SizedBox(height: 25),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                '📍 $location',
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                '💰 $price',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'هذا العقار متاح للإيجار. يمكنك التواصل مع صاحب العقار للحصول على المزيد من المعلومات.',
+                style: TextStyle(fontSize: 17),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
